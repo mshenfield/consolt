@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      var Chat = function(){}
+      Chat.prototype = {
+        chat: function(text) {
+          if (!this.name) {
+            console.warn("What's your name intrepid inspector? Run 'setName(name)' before chatting.");
+            return;
+          }
+          socket.emit('message', {text: text, name: this.name});
+        },
+        setName: function(name) {
+          if (!name) {
+            console.warn("You've got to pass in a String to 'setName'");
+            return;
+          }
+          this.name = name;
+          console.info("%cWelcome, " + this.name + "!", "color: purple");
+        }
+      }
+
+      me = new Chat();
+
+      function setName(name) {
+        me.setName(name);
+      }
+      var s = setName;
+
+      function chat(text) {
+        me.chat(text);
+      }
+      var c = chat;
+
+      var Room = function(){}
+      Room.prototype = {
+        addMessage: function(message){
+          if (!message || !message.name  || !message.text){
+            console.warn("Incorrect message format, expected {name: 'a name', text: 'some text'}\nGot " + message);
+            return;
+          }
+
+          if (!this.previous) {
+            console.group(message.name);
+          } else if (this.previous.name !== message.name) {
+            console.groupEnd();
+            console.group(message.name);
+          }
+
+          this.previous = message;
+          console.log(message.text);
+        }
+      }
+
+      var r = new Room();
+
+      function about(){
+        console.log(String.raw`
+  _____   _____     __   __  ______   _____    __     _______
+ /\ __/\ ) ___ (   /_/\ /\_\/ ____/\ ) ___ (  /\_\  /\_______)\
+ ) )__\// /\_/\ \  ) ) \ ( () ) __\// /\_/\ \( ( (  \(___  __\/
+/ / /  / /_/ (_\ \/_/   \ \_\\ \ \ / /_/ (_\ \\ \_\   / / /
+\ \ \_ \ \ )_/ / /\ \ \   / /_\ \ \\ \ )_/ / // / /__( ( (
+ ) )__/\\ \/_\/ /  )_) \ (_()____) )\ \/_\/ /( (_____(\ \ \
+ \/___\/ )_____(   \_\/ \/_/\____\/  )_____(  \/_____//_/_/
+
+Use the 'chat' (alias 'c') function to send chat messages that will be visible
+to anyone connected to this page. Make sure to 'setName' (alias 's') so that
+people know who they're talking to.
+`);
+      }
+      about();
+
+      socket.on('message', function(message) {
+        r.addMessage(message);
+      });
+    </script>
+  </body>
+</html>

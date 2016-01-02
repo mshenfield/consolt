@@ -1,0 +1,29 @@
+{
+  "name": "consolt",
+  "version": "0.1.0",
+  "description": "chat client and server for the developer console",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mshenfield/consolt.git"
+  },
+  "keywords": [
+    "chat",
+    "console",
+    "firebug",
+    "chrome-console"
+  ],
+  "author": "Max Shenfield",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mshenfield/consolt/issues"
+  },
+  "homepage": "https://github.com/mshenfield/consolt#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "socket.io": "^1.3.7"
+  }
+}
