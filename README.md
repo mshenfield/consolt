@@ -8,16 +8,25 @@ And so, without further ado, here it is!
 
 
 ## Usage
-The module adds two global variables to the console.
+To run:
 
-### `chat(text)` (alias `c`)
+```
+cd consolt
+npm install
+node lib/index.js
+```
+
+Open two tabs at http://localhost:3000 and pull up the developer console in each to see it in action.
+
+### Inside The Console
+#### `chat(text)` (alias `c`)
 Post a message to the chat room hosted on the page. Set a name with `setName` first.
 
-### `setName(name)` (alias `s`)
+#### `setName(name)` (alias `s`)
 Set your name in the chat room.
 
 ## Contributing
 As always, be respectful, contributions are welcome. Fork this project, report bugs, suggest enhancements, and submit pull requests.
 
 ## License
-[MIT](https://opensource.org/licenses/MIT)
+[MIT](https://opensource.org/licenses/MIT) © [Max Shenfield](https://github.com/mshenfield)
